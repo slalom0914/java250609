@@ -5,9 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class E implements ActionListener {
+    //윈도우 API 활용해서 창 제공하는 클래스이다.
     JFrame f = new JFrame();
     String b1_label = "비활성화";
     JButton b1=new JButton(b1_label);
+    //화면을 그리는 메소드 입니다.
     void initDisplay(){
         System.out.println("initDisplay");
         String title = new String("숫자맞추기게임");
@@ -18,6 +20,8 @@ class E implements ActionListener {
         f.add("North", b1);
         f.setTitle(title);
         f.setSize(400,400);
+        //true이면 화면이 출력됨, false이면 화면이 출력되지 않음.
+        //intellij에서는  false이면 자원을 회수해 버림
         f.setVisible(true);
     }
     //콜백함수 - 버튼이 눌려졌을 때 JVM이 호출해줌.
@@ -28,7 +32,13 @@ class E implements ActionListener {
         Object obj = e.getSource();
         //너 비활성화 버튼 누른거야?
         if(obj==b1){
-            //insert here
+            //insert here - 여기가 학습목표
+            f.setVisible(false);
+            //자바가상머신과의 연결고리가 끊어진다.
+            //자원회수가 일어난다.
+            //어플리케이션이 종료되었다.
+            System.exit(-1);
+            //f.dispose();
         }
 
     }
@@ -36,6 +46,7 @@ class E implements ActionListener {
 public class EMain {
     public static void main(String[] args) {
         //insert here
+        //여기가 학습목표이다.
         E e = new E();
         e.initDisplay();
     }
