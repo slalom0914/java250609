@@ -13,7 +13,8 @@ public class CMain {
         c.ival=10;
         c.ival=20;
         System.out.println(c.ival);//0-> 10(상태)
-        //c=new C();//지변
+        c = null;
+        c=new C();//지변
         //원본이 바뀌면 사이드이펙트가 발생할 수 있다.- 어려움
         c.ival=100;//여기에는 영향이 없다
         System.out.println(c.ival);//0-> 100(상태)
