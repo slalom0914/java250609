@@ -4,8 +4,11 @@ public class B1 {
     //값이 변하면 사이드이펙트 발생할 수 있다 - 어렵다.
     int ival;//0
     public static void main(String[] args) {
+        //b1은 전변이다 | 지변이다.
         // 깊은복사
         B1 b1 = new B1();//주소번지가 다르다.
+        B1 b11 = null;
+        System.out.println(b11);//null, or @abcd1234
         b1.ival = 10;
         System.out.println(b1);//@abcd1234
         b1 = new B1();//주소번지가 다르다.
