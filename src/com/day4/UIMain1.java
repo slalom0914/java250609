@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UIMain implements ActionListener {
-    UISub uiSub = new UISub();
+public class UIMain1 implements ActionListener {
+    UISub1 uiSub = new UISub1();
     @Override
     public void actionPerformed(ActionEvent e) {
         //생성된 버튼의 라벨 가져오기
@@ -14,24 +14,21 @@ public class UIMain implements ActionListener {
        //입력버튼 누른거야?
         if(command.equals("입력")){
             System.out.println("입력 호출");
-            uiSub.jd.setTitle(command);
-            uiSub.jd.setVisible(true);
+            uiSub.set(command, true);
         }
        //수정버튼 눌렀어?
        else if(command.equals("수정")){
             System.out.println("수정 호출");
-            uiSub.jd.setTitle("수정");
-            uiSub.jd.setVisible(true);
+            uiSub.set(command, true);
         }
        //상세보기 원해?
         else if(command.equals("상세보기")){
             System.out.println("상세보기 호출");
-            uiSub.jd.setTitle(command);
-            uiSub.jd.setVisible(true);
+            uiSub.set(command, true);
         }
     }
 
-    JFrame jf = new JFrame();
+    JFrame jf = new JFrame("CRUD");
     JPanel jp_north = new JPanel();
     JButton btnInsert = new JButton("입력");
     JButton btnUpdate = new JButton("수정");
@@ -52,7 +49,7 @@ public class UIMain implements ActionListener {
         jf.setVisible(true);
     }
     public static void main(String[] args) {
-        UIMain ui = new UIMain();
+        UIMain1 ui = new UIMain1();
         ui.initDisplay();
     }
 }

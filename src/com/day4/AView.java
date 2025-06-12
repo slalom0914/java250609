@@ -12,9 +12,10 @@ class AEvent implements ActionListener {
     AView aview = null;//선언만
     //AView aView = new AView();//깊은복사- 두 개
     //원본이 클릭 전 클릭 후로 바뀌어야 하는데 복사본이 바뀐다.
+    //지역변수에는 this를 사용할 수 없다.
     AEvent(AView aview){
         //아래처럼 전변과 초기화를 하지 않으면 NullPointerException발생
-        this.aview = aview;
+        this.aview = aview;//전역변수에 지역변수를 재정의하기
     }
     @Override
     public void actionPerformed(ActionEvent e) {
