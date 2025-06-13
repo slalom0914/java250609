@@ -5,6 +5,12 @@ import java.awt.event.ActionListener;
 //RandomGameEvent는 ActionListener구현체 클래스가 되어야 함.
 public class RandomGameEvent implements ActionListener {
     RandomGameUI rgu = null;//원본을 사용하므로
+    //변수 my가 변할 때 count도 같이 증가된다.
+    //count에 대한 상태변화는 판정하기 가 아닌 이벤트 처리부에서 처리되고 있다.
+    //그래서 이벤트 클래스에서 처리하는 것이 좋겠다.
+    //게임이 진행되는 동안에는 유지가 되고 새게임이나 정답을 눌렀을 때는
+    //초기화가 되어야 한다.
+    int count = 0;
     //절대로 복사본을 만들지 않는다.
     //버튼에 접근하려면 RandomGameUI에 대한 인스턴스변수가 필요함.
     public RandomGameEvent(RandomGameUI rgu){
