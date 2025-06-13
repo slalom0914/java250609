@@ -5,6 +5,9 @@ import java.awt.*;
 
 public class RandomGameUI {
     //선언부
+    //객체 주입시 순환구조가 되지 않도록 주의할 것.
+    RandomGameEvent rge = new RandomGameEvent(this);
+    RandomGameLogic rgl = new RandomGameLogic(this);
     JFrame jf = new JFrame("숫자게임-Ver2");
     JPanel jp_center    = new JPanel();
     JPanel jp_east      = new JPanel();
@@ -30,6 +33,14 @@ public class RandomGameUI {
         jp_east.add(btnDap);//정답
         jp_east.add(btnExit);//종료
         jta.setBackground(Color.cyan);
+        //내 안에 actionPerformed가 있지 않다. - 외부에 있다.
+        //외부에 객체 사용할 때는 인스턴스화
+        btnClear.addActionListener(rge);
+        btnDap.addActionListener(rge);
+        btnNew.addActionListener(rge);
+        jtf.addActionListener(rge);
+        btnExit.addActionListener(rge);
+
         jf.add("Center",jsp);
         jf.add("South",jtf);
         jf.add("East",jp_east);

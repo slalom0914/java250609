@@ -87,7 +87,7 @@ public class RandomGameViewVer2 implements ActionListener {
             jta.append(++count+"회차 : "+my+"-"+msg+"\n");
             jtf.setText("");
         }
-    }
+    }//end of actionPerformed
     public void initDisplay(){
         System.out.println("화면 출력하기");
         jta.setEditable(false);// 수정모드를 끄기
