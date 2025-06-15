@@ -27,24 +27,36 @@ public class JTableExam2 implements ActionListener {
         if(source == btnDel){
             System.out.println("삭제버튼 클릭 성공");
             //몇번째 로우를 삭제할거야?
-            int index[] = table.getSelectedRows();
-            Object[][] newDatas = new Object[datas.length-1][];
-            int newIndex = 0;
-            for(int i=0;i<datas.length;i++){
-                if(i != index[0]){
-                    newDatas[newIndex++]=datas[i];
+            int[] selectedRows = table.getSelectedRows();
+
+            if(selectedRows.length > 0) {
+                // 색인 이동 문제를 피하기 위해 하강 순서로 지수를 정렬
+                // 여러 행을 제거 할 때
+                java.util.Arrays.sort(selectedRows);
+
+                // 모델에서 행을 반대로 제거합니다
+                for(int i = selectedRows.length - 1; i >= 0; i--) {
+                    dtm.removeRow(selectedRows[i]);
                 }
-            }
-            for(int i=0;i<newDatas.length;i++){
-                for(int j=0;j<newDatas[i].length;j++){
-                    System.out.println(newDatas[i][j]);
+
+                // 현재 테이블 데이터와 일치하도록 데이터 배열 업데이트
+                String[][] newDatas = new String[dtm.getRowCount()][cols.length];
+                for(int i = 0; i < dtm.getRowCount(); i++) {
+                    for(int j = 0; j < dtm.getColumnCount(); j++) {
+                        newDatas[i][j] = (String)dtm.getValueAt(i, j);
+                    }
                 }
+                // 원래 데이터 배열을 업데이트하십시오
+                datas = newDatas;
+                System.out.println("선택한 행이 삭제되었습니다.");
+            } else {
+                JOptionPane.showMessageDialog(frame, "삭제할 행을 선택해주세요.", "알림", JOptionPane.INFORMATION_MESSAGE);
             }
-            getList(newDatas);
         }
     }
     public void initDisplay(){
         btnDel.addActionListener(this);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add("North", btnDel);
         frame.add("Center",jsp);
         frame.setSize(300, 300);
