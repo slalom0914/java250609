@@ -10,6 +10,8 @@ public class TimeClientView extends JFrame {
         initDisplay();
     }
     public void initDisplay(){
+        Thread th = new TimeClient(jlb_timer);
+        th.start();
         jlb_timer.setFont(f);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.add("Center", jlb_timer);
