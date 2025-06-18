@@ -15,7 +15,7 @@ public class TalkClient extends JFrame implements ActionListener {
     String chatName = null;
     public TalkClient() {
         System.out.println("TalkClient 생성자 호출 성공");
-        initDisplay();
+        //initDisplay();
     }
     //소켓 관련 초기화
     public void init(){
@@ -23,6 +23,11 @@ public class TalkClient extends JFrame implements ActionListener {
         //지연이 발생하는 부분 - 대기
         //통신 채널연결되어야 OOS, OIS 객체 생성이 가능해짐
         //NullPointerException
+        //내가 입장했다는 사실도 현재 단톡방에 있는 모든 이에게
+        //전달하고자 한다.
+        //그래서 내가 말하자마자 들을 준비를 바로 한다.
+        TalkClientThread tct = new TalkClientThread(this);
+        tct.start();
     }
     //말하기 - oos.writeObject()
     //NullPointerException발동할 가능성이 있는 구간
@@ -39,5 +44,12 @@ public class TalkClient extends JFrame implements ActionListener {
     public static void main(String[] args) {
         TalkClient tc = new TalkClient();
         tc.initDisplay();
+        tc.init();//이 메서드에서 TalkClientThread인스턴스화 한다.
+        //이 때 현재 생성된 TalkClient원본을 파라미터로 넘김.
+        //NullPointerException방어한다.
     }
 }//end of TalkClient
+/*
+내가 한 말도 서버를 경유해서 들어야 한다.
+왜냐하면 서버를 경유해야 단톡방에 모든 이들에게 방송이 나간다.
+ */
