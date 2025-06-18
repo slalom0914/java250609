@@ -6,8 +6,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/src/com/day5/design2" />
       <excludeFolder url="file://$MODULE_DIR$/src/com/init" />
+      <excludeFolder url="file://$MODULE_DIR$/src/chat/step1" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="ojdbc11-21.11.0.0" level="project" />
   </component>
 </module>

@@ -4,6 +4,8 @@ package com.day11.design;
 // 구현체 클래스 라고 하고 new 다음에는 구현체 클래스를 쓴다.
 public class DuckSimulation {
     public static void main(String[] args) {
+        //Duck himDuck = new Duck();
+        //FlyBehavior fb = new FlyBehavior();
         Duck myDuck = new MallardDuck();
         myDuck.performFly();
         Duck herDuck = new RubberDuck();

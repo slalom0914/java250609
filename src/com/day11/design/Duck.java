@@ -18,3 +18,16 @@ public abstract class Duck {
         System.out.println("모든 오리는 물위에 뜬다.");
     }
 }
+/*
+추상클래스, 인터페이스
+직접 프레임워크를 만든다.
+설계 - 계획 - 아직 어떻게 사용하지 결정할 수 없다.
+
+클래스
+
+객체를 생성하기
+A a = new A();
+Parent p = new Child();권장- 결합도 낮춰주고 독립적임
+ActionListener al = new JFrameTest();
+A a = b.getInstance() -> 메서드를 통해서 객체 생성함.
+ */
