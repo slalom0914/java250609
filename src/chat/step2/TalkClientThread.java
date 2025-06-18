@@ -1,7 +1,5 @@
-package chat;
-//경합이 벌어진다. - 스레드
-//순서가 있다. - 스레드
-//timeline도 포함
+package chat.step2;
+
 public class TalkClientThread extends Thread {
     TalkClient tc = null;
     public TalkClientThread(TalkClient tc) {

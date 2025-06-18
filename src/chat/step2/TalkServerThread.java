@@ -1,4 +1,4 @@
-package chat;
+package chat.step2;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,7 +22,6 @@ public class TalkServerThread extends Thread {
     public void broadCasting(String msg){
         System.out.println("단톡방에 모든 이에게 전달");
         for(TalkServerThread tst:ts.globalList){
-            //왜 여기서 말하지 않고 send메서드를 분리했는가?
             tst.send(msg);
         }
     }//end of broadCasting
