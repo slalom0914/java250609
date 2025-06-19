@@ -16,17 +16,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class DeptList extends JFrame implements ActionListener {
+public class DeptList2 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if(btnSelect == src){
             System.out.println(model.getRowCount());//0
-            Vector<String> v = new Vector<>();
-            v.add("10");
-            v.add("영업부");
-            v.add("서울");
-            model.addRow(v);
+
+            List<DeptVO> dlist = getList();
+            //이미 테이블에 조회된 정보가 있는 경우 모두 삭제하고
+            //새로 읽어온 데이터를 다시 출력한다. - 초기화
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+            for(int i=0;i<dlist.size();i++){//데이터가 들어 있는거야?
+                DeptVO rdvo = dlist.get(i);
+                Vector<Object> v = new Vector<>();
+                v.add(rdvo.getDeptno());
+                v.add(rdvo.getDname());
+                v.add(rdvo.getLoc());
+                model.addRow(v);//데이터셋에 데이터를 추가하는 코드를 어디에 써야하나
+            }
+
         }
     }//end of actionPerformed
 
@@ -50,7 +61,7 @@ public class DeptList extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public DeptList() {
+    public DeptList2() {
         dbMgr = DBConnectionMgr.getInstance();
         initDisplay();
     }
@@ -69,6 +80,7 @@ public class DeptList extends JFrame implements ActionListener {
                 dvo.setLoc(rs.getString("loc"));
                 list.add(dvo);
             }
+            System.out.println(list.size());
         }catch(SQLException se){
             //select문에 대한 디버깅은 오라클 전용도구 사용함.
             System.out.println(sql);
@@ -105,7 +117,7 @@ public class DeptList extends JFrame implements ActionListener {
     }// end of getList
 
     public static void main(String[] args) {
-        new DeptList();
+        new DeptList2();
         //initDisplay();
     }
 }
