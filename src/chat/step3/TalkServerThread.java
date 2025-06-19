@@ -1,4 +1,4 @@
-package chat.step2;
+package chat.step3;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

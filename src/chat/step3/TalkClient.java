@@ -1,4 +1,4 @@
-package chat.step2;
+package chat.step3;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
