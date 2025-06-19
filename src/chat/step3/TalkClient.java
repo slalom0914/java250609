@@ -33,6 +33,8 @@ public class TalkClient extends JFrame implements ActionListener {
     JScrollPane jsp_display = null;
     public TalkClient() {
         System.out.println("TalkClient 생성자 호출 성공");
+        //input type=text
+        jtf_msg.addActionListener(this);
         //initDisplay();
     }
     //소켓 관련 초기화
@@ -52,6 +54,18 @@ public class TalkClient extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("콜백메서드");//timeline연관
+        Object source = e.getSource();
+        String msg = jtf_msg.getText();
+        if(jtf_msg == source){//Enter이벤트
+            try{
+                oos.writeObject(Protocol.MESSAGE
+                        +"#"+chatName
+                        +"#"+msg);
+                jtf_msg.setText("");//이런걸 챙김
+            }catch(Exception ex){
+
+            }
+        }
     }//end of actionPerformed
     public void initDisplay(){
         System.out.println("TalkClient화면 그리기");
