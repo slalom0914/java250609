@@ -71,6 +71,15 @@ public class TalkServerThread extends Thread {
                     protocol = Integer.parseInt(st.nextToken());
                 }
                 switch(protocol){
+                    //대화명 변경하기
+                    case Protocol.CHANGE:{
+                        String chatName = st.nextToken();
+                        String afterName = st.nextToken();
+                        this.chatName = afterName;
+                        broadCasting(Protocol.CHANGE+"#"+chatName
+                                +"#"+afterName+"#"+chatName+"님의 대화명이 "
+                                +afterName+"으로 변경");
+                    }break;
                     //다자간 대화하기
                     case Protocol.MESSAGE:{//200#키위#점심 뭐 먹을까?
                         String chatName = st.nextToken();
