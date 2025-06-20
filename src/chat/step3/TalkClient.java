@@ -58,7 +58,15 @@ public class TalkClient extends JFrame implements ActionListener {
         System.out.println("콜백메서드");//timeline연관
         Object source = e.getSource();
         String msg = jtf_msg.getText();
-        if(jbtn_change == source){//대화명 변경 버튼을 누른거야
+        if(jbtn_exit == source){
+            try {
+                oos.writeObject(Protocol.EXIT+"#"+this.chatName);
+                System.exit(0);//자바가상머신 연결 끊김
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        else if(jbtn_change == source){//대화명 변경 버튼을 누른거야
             String afterName = JOptionPane.showInputDialog("변경할 대화명을 입력하세요.");
             //만일 변경할 대화명을 입력하지 않았다면
             if(afterName == null || afterName.trim().length() == 0)

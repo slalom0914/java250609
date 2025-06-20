@@ -56,9 +56,23 @@ public class TalkClientThread extends Thread {
                         }
                         tc.jta_display.append(message+"\n");
                     }break;
+                    case Protocol.EXIT:{//500#키위
+                        String chatName = st.nextToken();
+                        tc.jta_display.append(chatName+"님이 퇴장 하였습니다.\n");
+                        tc.jta_display.setCaretPosition
+                        (tc.jta_display.getDocument().getLength());
+                        //테이블에서 chatName제거하기
+                        //테이블 목록에 이름과 chatName비교하여 같으면 삭제
+                        for(int i=0;i<tc.dtm.getRowCount();i++){
+                            String temp = (String)tc.dtm.getValueAt(i, 0);
+                            if(temp.equals(chatName)){
+                                tc.dtm.removeRow(i);
+                            }
+                        }//end of for
+                    }break;
                 }//end of switch
             }catch(Exception e){
-
+                e.printStackTrace();
             }
         }//////////// end of while
     }//////////////// end of run
