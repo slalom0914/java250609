@@ -162,7 +162,13 @@ public class JDBCDemo {
                 evo.setComm(rs.getDouble("comm"));
                 evo.setDeptno(rs.getInt("deptno"));
                 list.add(evo);
-            }
+            }//end of while
+            //List - []
+            //Map - {empno=7499}, json {empno:7499}
+            System.out.println(list);//json과 비슷하지만 json아니다.
+            //Gson g = new Gson();
+            //String temp = g.toJson(list);
+            //out.print(temp);
         }catch(SQLException se){
             System.out.println(query.toString());
         }catch (Exception e){
