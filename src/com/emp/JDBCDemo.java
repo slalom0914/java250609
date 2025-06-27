@@ -53,6 +53,13 @@ public class JDBCDemo {
             System.out.println(query.toString());
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            try{
+                if(pstmt!=null){ pstmt.close(); }
+                if(conn!=null){ conn.close(); }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
         return result;
     }
@@ -92,24 +99,32 @@ public class JDBCDemo {
             }
 
         }catch(SQLException se){
+            System.out.println(se.toString());
             System.out.println(query.toString());
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            try{
+                if(pstmt!=null){ pstmt.close(); }
+                if(conn!=null){ conn.close(); }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
         return result;
     }
     //사원삭제 - delete - rest api delete
     //DELETE FROM emp WHERE empno = 8000
     //메서드 설계시 파라미터를 쿼리문을 보고 결정할 수 있다.
-    public int empDelete(int deptno){
+    public int empDelete(int empno){
         int result = 0;
         StringBuilder query = new StringBuilder();
-        query.append("DELETE FROM emp WHERE deptno = ?");
+        query.append("DELETE FROM emp WHERE empno = ?");
         try{
             Class.forName(_DRIVER);
             conn = DriverManager.getConnection(_URL, _USER, _PASSWORD);
             pstmt = conn.prepareStatement(query.toString());
-            pstmt.setInt(1, deptno);
+            pstmt.setInt(1, empno);
 
             result = pstmt.executeUpdate();
             if(result == 1){//후처리
@@ -122,6 +137,13 @@ public class JDBCDemo {
             System.out.println(query.toString());
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            try{
+                if(pstmt!=null){ pstmt.close(); }
+                if(conn!=null){ conn.close(); }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
         return result;
     }
@@ -173,6 +195,14 @@ public class JDBCDemo {
             System.out.println(query.toString());
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            try{
+                if (rs != null) { rs.close(); }
+                if(pstmt!=null){ pstmt.close(); }
+                if(conn!=null){ conn.close(); }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
         return list;
     }
