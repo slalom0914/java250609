@@ -58,11 +58,11 @@ public class EmpVO {
         this.sal = sal;
     }
 
-    public String getComm() {
+    public double getComm() {
         return comm;
     }
 
-    public void setComm(String comm) {
+    public void setComm(double comm) {
         this.comm = comm;
     }
 

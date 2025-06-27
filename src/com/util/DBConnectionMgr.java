@@ -51,6 +51,21 @@ public class DBConnectionMgr {
     }//end of getConnection
     //사용한 자원에 대해서는 반납하기
     //자원을 반납시 생성된 역순으로 한다.
+    public void freeConnection(Connection conn, PreparedStatement pstmt, ResultSet rs){
+        try {
+            if(rs != null){
+                rs.close();
+            }
+            if(pstmt != null){
+                pstmt.close();
+            }
+            if(conn != null){
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public void freeConnection(Connection conn, Statement stmt, ResultSet rs){
         try {
             if(rs != null){
