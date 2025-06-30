@@ -88,6 +88,8 @@ public class EmpManagerDao {
         System.out.println("empno:"+empno);
         try {
             sql.append("SELECT empno, ename, job");
+            sql.append("     , mgr, to_char(hiredate, 'YYYY-MM-DD') as hiredate, sal");
+            sql.append("     , comm, deptno");
             sql.append(" FROM emp");
             if(empno > 0){
                 sql.append(" WHERE empno = ?");
@@ -106,6 +108,11 @@ public class EmpManagerDao {
                 evo.setEmpno(rs.getInt("empno"));
                 evo.setEname(rs.getString("ename"));
                 evo.setJob(rs.getString("job"));
+                evo.setMgr(rs.getInt("mgr"));
+                evo.setHiredate(rs.getString("hiredate"));
+                evo.setSal(rs.getDouble("sal"));
+                evo.setSal(rs.getDouble("comm"));
+                evo.setDeptno(rs.getInt("deptno"));
                 elist.add(evo);
             }
         } catch (SQLException se){

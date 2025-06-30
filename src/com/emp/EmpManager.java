@@ -138,6 +138,7 @@ public class EmpManager extends JFrame implements ActionListener {
             vone.add(oneRow.getEmpno());
             vone.add(oneRow.getEname());
             vone.add(oneRow.getJob());
+            vone.add(oneRow.getHiredate());
             dtm_emp.addRow(vone);
         }
     }
@@ -147,10 +148,15 @@ public class EmpManager extends JFrame implements ActionListener {
         Object obj = e.getSource();
         // 조회 할거야?
         if (obj == jbtn_sel) {
-            refreshData();
+            refreshData();//전체 조회
         }
         // 너 입력 버튼 누른거야?
         else if (obj == jbtn_ins) {
+            //4가지 파라미터 - set메서드는 EmpDialog 있다.
+            //setTitle("입력")
+            //두번째 파라미터는 JDialog를 보여줄지 아니면 숨길 지 결정
+            //세번째 파라미터는 DB경유했을 때 만 값을 가짐
+            //네번째 파라미터는 사용자가 입력할 수  있도록 true설정함.
             empDialog.set("입력", true, null, true);
         }
         // 너 수정 할려구?
@@ -216,6 +222,6 @@ public class EmpManager extends JFrame implements ActionListener {
     }//end of actionPerformed
 
     public static void main(String[] args) {
-        new EmpManager();
+        new EmpManager();//initDisplay()호출 가능함.
     }
 }

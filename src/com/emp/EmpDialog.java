@@ -5,7 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//입력과 수정 처리 - INSERT문과 UPDATE 처리 - 저장 클릭(if문)
+//상세보기 처리
+//하나의 화면으로 세 가지를 사용합니다.
 public class EmpDialog extends JDialog implements ActionListener {
     // 선언부
     EmpManager empManager = null;
@@ -42,6 +44,14 @@ public class EmpDialog extends JDialog implements ActionListener {
     }
 
     public EmpDialog(EmpManager empManager) {
+        //얕은 복사를 위해 생성자를 사용함 - 원본
+        //입력에 대한 저장 버튼은 Dialog클래스에 있는데
+        //처리는 EmpManagerDao에서 하고 - insert문 처리 - 오라클
+        //리턴값이 1이면 입력 성공이고 0이면 실패이다.
+        //리턴값이 1이면 부모목록테이블 새로고침해야 한다.
+        //EmpDialog에서 EmpManager에 있는 메서드(refreshData)를 호출해야 한다.
+        //그래야 새로고침이 일어난다.
+        //actionPerformed메서드 안에서 empManager.refreshData호출해야 한다.
         this.empManager = empManager;
         initDisplay();
     }
@@ -98,7 +108,7 @@ public class EmpDialog extends JDialog implements ActionListener {
     }
 
     // 각 컬럼(부서집합-부서번호,부서명,지역)의 값들을설정하거나
-    // 읽어오는 getter/setter메소드 임
+    // 읽어오는 getter/setter메소드 임- 화면관련
     public String getEmpno() {
         return jtf_empno.getText();
     }
@@ -108,14 +118,14 @@ public class EmpDialog extends JDialog implements ActionListener {
     public String getEname() {
         return jtf_ename.getText();
     }
-    public void setEname(String dname) {
-        jtf_ename.setText(dname);
+    public void setEname(String ename) {
+        jtf_ename.setText(ename);
     }
     public String getJob() {
         return jtf_job.getText();
     }
-    public void setJob(String loc) {
-        jtf_job.setText(loc);
+    public void setJob(String job) {
+        jtf_job.setText(job);
     }
     public String getHiredate() {
         return jtf_hiredate.getText();
@@ -145,7 +155,7 @@ public class EmpDialog extends JDialog implements ActionListener {
         return jtf_deptno.getText();
     }
     public void setDeptno(String deptno) {
-        jtf_mgr.setText(deptno);
+        jtf_deptno.setText(deptno);
     }
 
     // 아래 메소드는 DeptTable7에서 호출됨
@@ -187,7 +197,7 @@ public class EmpDialog extends JDialog implements ActionListener {
         // 상세조회, 수정시는 배열로 받은 값으로 셋팅함
         // 부모창에서 set메소드 호출시 파라미터로 넘겨준 값으로 초기화할것.
         else {
-            setEmpno(String.valueOf(peVO.getDeptno()));
+            setEmpno(String.valueOf(peVO.getEmpno()));
             setEname(peVO.getEname());
             setJob(peVO.getJob());
             setHiredate(peVO.getHiredate());
@@ -210,22 +220,21 @@ public class EmpDialog extends JDialog implements ActionListener {
             this.dispose();
         }
         else if (obj == jbtn_save) {
-            if(getName().trim().length() == 0) {
-                JOptionPane.showMessageDialog(this, "이름을 입력하세요.", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if(peVO !=null){
+            //select경유 - > EmpVO담기
+            if(peVO !=null){//수정하기
                 try{
+                    //pevo는 EmpManager클래스에서 오라클 서버에 조회한 결과를 담은
+                    //클래스이고 아래 evo는 사용자가 입력한 정보를 오라클서버에 보낼
+                    //정보를 담음-> 화면에서 입력한 값 담김
                     EmpVO evo = new EmpVO();
-                    evo.setEmpno(peVO.getEmpno());
-                    evo.setEname(getEname());
-                    evo.setJob(getJob());
-                    evo.setHiredate(getHiredate());
-                    evo.setSal(Double.parseDouble(getSal()));
-                    evo.setComm(Double.parseDouble(getComm()));
-                    evo.setMgr(Integer.parseInt(getComm()));
-
+                    //수정은 기존에 있는 정보를 변경하는 것임.
+                    //update문 처리할 때 조건절에 사원번호를 비교해야 함. -pk
+                    evo.setEmpno(peVO.getEmpno());//pk
+                    evo.setEname(getEname());//사용자가 입력한 값
+                    evo.setJob(getJob());//사용자가 입력한 값
+                    evo.setHiredate(getHiredate());//사용자 입력한 값
+                    evo.setSal(Double.parseDouble(getSal()));//사용자 입력한 값
+                    evo.setComm(Double.parseDouble(getComm()));//사용자 입력한 값
                     int result = empManager.emDao.empUpdate(evo);
                     if(result == 1){
                         System.out.println("수정 성공");
